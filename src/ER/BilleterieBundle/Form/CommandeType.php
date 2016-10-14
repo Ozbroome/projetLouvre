@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -25,7 +25,7 @@ class CommandeType extends AbstractType
         $builder
                 ->add('dateVisite', DateType::class)
                 ->add('demi', CheckboxType::class )
-                ->add('nombre', NumberType::class)
+                ->add('nombre', IntegerType::class)
                 ->add('email',     EmailType::class )
                 ->add('save',   SubmitType::class);
     }
