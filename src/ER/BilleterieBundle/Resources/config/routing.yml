@@ -1,3 +1,9 @@
 er_billeterie_homepage:
     path:     /
     defaults: { _controller: ERBilleterieBundle:Default:index }
+    
+er_billeterie_Client:
+    path:   /client
+    defaults:
+        _controller: ERBilleterieBundle:Default:client
+     

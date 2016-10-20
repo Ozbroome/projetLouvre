@@ -42,11 +42,26 @@ class Client
      */
     private $naissance;
 
-
+    /**
+     *
+     * @var type Commande
+     * 
+     * @ORM\ManyToOne(targetEntity="ER\BilleterieBundle\Entity\Commande", inversedBy="clients")
+     */
+    private $commande;
+    
+    /**
+     *
+     * @var type Billet
+     * 
+     * @ORM\OneToOne(targetEntity="ER\BilleterieBundle\Entity\Billet")
+     */
+    private $billet;
+    
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -124,5 +139,52 @@ class Client
     {
         return $this->naissance;
     }
-}
 
+    /**
+     * Set commande
+     *
+     * @param \ER\BilleterieBundle\Entity\Commande $commande
+     *
+     * @return Client
+     */
+    public function setCommande(\ER\BilleterieBundle\Entity\Commande $commande = null)
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Get commande
+     *
+     * @return \ER\BilleterieBundle\Entity\Commande
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * Set billet
+     *
+     * @param \ER\BilleterieBundle\Entity\Billet $billet
+     *
+     * @return Client
+     */
+    public function setBillet(\ER\BilleterieBundle\Entity\Billet $billet = null)
+    {
+        $this->billet = $billet;
+
+        return $this;
+    }
+
+    /**
+     * Get billet
+     *
+     * @return \ER\BilleterieBundle\Entity\Billet
+     */
+    public function getBillet()
+    {
+        return $this->billet;
+    }
+}

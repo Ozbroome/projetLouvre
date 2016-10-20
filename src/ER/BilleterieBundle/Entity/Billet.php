@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Billet
- *
+ * 
  * @ORM\Table(name="billet")
  * @ORM\Entity(repositoryClass="ER\BilleterieBundle\Repository\BilletRepository")
  */
@@ -21,12 +21,7 @@ class Billet
      */
     private $id;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="Demi", type="boolean")
-     */
-    private $demi;
+
 
     /**
      * @var int
@@ -51,30 +46,6 @@ class Billet
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set demi
-     *
-     * @param boolean $demi
-     *
-     * @return Billet
-     */
-    public function setDemi($demi)
-    {
-        $this->demi = $demi;
-
-        return $this;
-    }
-
-    /**
-     * Get demi
-     *
-     * @return bool
-     */
-    public function getDemi()
-    {
-        return $this->demi;
     }
 
     /**

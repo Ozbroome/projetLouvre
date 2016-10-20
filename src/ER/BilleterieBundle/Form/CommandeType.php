@@ -5,7 +5,7 @@ namespace ER\BilleterieBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,7 +24,7 @@ class CommandeType extends AbstractType
     {
         $builder
                 ->add('dateVisite', DateType::class)
-                ->add('demi', CheckboxType::class )
+                ->add('demi', ChoiceType::class, array ('choices'=>array('journée'=>0,'demi-journée'=>1), 'label'=>'Type de billet') )
                 ->add('nombre', IntegerType::class)
                 ->add('email',     EmailType::class )
                 ->add('save',   SubmitType::class);

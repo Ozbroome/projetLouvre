@@ -55,7 +55,16 @@ class Commande
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
-
+    
+    /**
+     *
+     * @var type 
+     * 
+     * @ORM\OneToMany(targetEntity="ER\BilleterieBundle\Entity\Client", mappedBy="commande",cascade={"persist"})
+     */
+    private $clients;
+    
+    
     public function __construct()
     {
         $this->date= new \DateTime();
@@ -189,5 +198,39 @@ class Commande
     {
         return $this->email;
     }
-}
 
+    /**
+     * Add client
+     *
+     * @param \ER\BilleterieBundle\Entity\Client $client
+     *
+     * @return Commande
+     */
+    public function addClient(\ER\BilleterieBundle\Entity\Client $client)
+    {
+        $this->clients[] = $client;
+        $client->setCommande($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove client
+     *
+     * @param \ER\BilleterieBundle\Entity\Client $client
+     */
+    public function removeClient(\ER\BilleterieBundle\Entity\Client $client)
+    {
+        $this->clients->removeElement($client);
+    }
+
+    /**
+     * Get clients
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClients()
+    {
+        return $this->clients;
+    }
+}
