@@ -17,6 +17,7 @@ class DefaultController extends Controller
         $commande = new Commande();
         $form = $this->get('form.factory')->create(CommandeType::class, $commande);
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            
             $session->set('Commande', $commande);
             
             return $this->redirectToRoute('er_billeterie_Client');
@@ -31,12 +32,9 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $commande = $session->get('Commande');
         $nombre = $commande->getNombre();
-        if ($nombre>0) {
-             $clients = array();
+        $clients = array();
         for ($i=0; $i<$nombre; $i++){
-            $client[$i] = new Client();
-            $commande->addClient($client[$i]);
-            
+            $clients[$i] = new Client();
         }
         $form = $this->createFormBuilder($clients);
         for ($i = 0; $i < $nombre; $i++) {
@@ -48,17 +46,20 @@ class DefaultController extends Controller
         $formClient = $form->getForm();
         if ($request->isMethod('POST') && $formClient->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            for ($i = 0; $i < $nombre; $i++) {
+                  $commande->addClient($clients[$i]);
+            }
             $em->persist($commande);
-            
             $em->flush();
-            
-            return $this->redirectToRoute('er_billeterie_homepage');
+            return $this->redirectToRoute('er_billeterie_paiement');
         }
        /* $formClient = $this->get('form.factory')->create(ClientType::class, $clients);*/
         return $this->render('ERBilleterieBundle:Default:client.html.twig', array('formClient' => $formClient->createView(),
             ));
-        }
-       return $this->redirectToRoute('er_billeterie_homepage');
-     
+    }
+    
+    public function paiementAction()
+    {
+        return $this->render('ERBilleterieBundle:Default:paiement.html.twig');
     }
 }

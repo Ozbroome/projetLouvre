@@ -1,0 +1,25 @@
+{% extends "::base.html.twig" %}
+{% block content %}
+    <div class="nav-space-checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Récapitulatif de la commande</h1>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                <form action="" method="POST">
+                    <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_HxZzNHy8LImKK9LDtgMDRBwd"
+                        data-amount="800"
+                        data-name="Dollar Shear Club"
+                        data-description="Widget"
+                        data-image="/img/documentation/checkout/marketplace.png"
+                        data-locale="auto">
+                    </script>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    {% endblock%}{# empty Twig template #}

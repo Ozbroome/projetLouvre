@@ -6,4 +6,9 @@ er_billeterie_Client:
     path:   /client
     defaults:
         _controller: ERBilleterieBundle:Default:client
+        
+er_billeterie_paiement:
+    path:   /paiement
+    defaults:
+        _controller: ERBilleterieBundle:Default:paiement
      
