@@ -50,9 +50,11 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
+                  $clients[$i]->setBillet();
             }
             $session->set('Commande', $commande);
-
+            
+           
             return $this->redirectToRoute('er_billeterie_paiement');
         }
        /* $formClient = $this->get('form.factory')->create(ClientType::class, $clients);*/

@@ -58,6 +58,8 @@ class Client
      */
     private $billet;
     
+    private $tarifReduit;
+    
     /**
      * Get id
      *
@@ -187,4 +189,13 @@ class Client
     {
         return $this->billet;
     }
+    function getTarifReduit() {
+        return $this->tarifReduit;
+    }
+
+    function setTarifReduit($tarifReduit) {
+        $this->tarifReduit = $tarifReduit;
+    }
+
+
 }

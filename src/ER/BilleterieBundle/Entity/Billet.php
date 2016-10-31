@@ -24,9 +24,9 @@ class Billet
 
 
      /**
-     * @var bool
+     * @var int
      *
-     * @ORM\Column(name="demi", type="boolean")
+     * @ORM\Column(name="demi", type="integer")
      */
     private $categorie;
 

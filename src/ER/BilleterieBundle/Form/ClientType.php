@@ -21,7 +21,7 @@ class ClientType extends AbstractType
                 ->add('nom',   TextType::class )
                 ->add('prenom',     TextType::class)
                 ->add('naissance',      DateType::class)
-                ->add('billet',      BilletType::class, array('label'=>'Cochez la case ci-dessous si tarif réduit (retraité, en situation de handicap etc.)','required' => false))
+                ->add('tarifReduit',      CheckboxType::class, array('label'=>'Cochez la case ci-dessous si tarif réduit (retraité, en situation de handicap etc.)','required' => false))
                  ;
     }
     
