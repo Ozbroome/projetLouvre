@@ -23,10 +23,10 @@ class Billet
 
 
 
-    /**
-     * @var int
+     /**
+     * @var bool
      *
-     * @ORM\Column(name="categorie", type="integer")
+     * @ORM\Column(name="demi", type="boolean")
      */
     private $categorie;
 
@@ -96,4 +96,3 @@ class Billet
         return $this->tarif;
     }
 }
-

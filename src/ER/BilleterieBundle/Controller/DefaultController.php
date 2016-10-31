@@ -8,6 +8,7 @@ use ER\BilleterieBundle\Form\ClientType;
 use ER\BilleterieBundle\Entity\Client;
 use ER\BilleterieBundle\Entity\Commande;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class DefaultController extends Controller
 {
@@ -38,19 +39,20 @@ class DefaultController extends Controller
         }
         $form = $this->createFormBuilder($clients);
         for ($i = 0; $i < $nombre; $i++) {
-            $form->add($i, ClientType::class, array(
+            $form
+                    ->add($i, ClientType::class, array(
                 'label' => 'Visiteur ' . ($i + 1) . ':'
             ));
         }
-        $form->add('save',   SubmitType::class);
+        $form->add('save',   SubmitType::class, array('label'=>'Continuer'));
         $formClient = $form->getForm();
         if ($request->isMethod('POST') && $formClient->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
             }
-            $em->persist($commande);
-            $em->flush();
+            $session->set('Commande', $commande);
+
             return $this->redirectToRoute('er_billeterie_paiement');
         }
        /* $formClient = $this->get('form.factory')->create(ClientType::class, $clients);*/
@@ -58,8 +60,13 @@ class DefaultController extends Controller
             ));
     }
     
-    public function paiementAction()
+    public function paiementAction(Request $request)
     {
+        
+        $session = $request->getSession();
+        $commande = $session->get('Commande');
+        $id = $commande->getId();
+        
         return $this->render('ERBilleterieBundle:Default:paiement.html.twig');
     }
 }
