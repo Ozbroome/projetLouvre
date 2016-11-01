@@ -9,7 +9,7 @@ use ER\BilleterieBundle\Entity\Client;
 use ER\BilleterieBundle\Entity\Commande;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
+use ER\BilleterieBundle\Entity\Billet;
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
@@ -50,9 +50,11 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
-                  $clients[$i]->setBillet();
+                  $clients[$i]->setBillet($this->generateBillet($clients[$i], $commande->getDemi(),$commande));
             }
             $session->set('Commande', $commande);
+            $em->persist($commande);
+            $em->flush();
             
            
             return $this->redirectToRoute('er_billeterie_paiement');
@@ -70,5 +72,54 @@ class DefaultController extends Controller
         $id = $commande->getId();
         
         return $this->render('ERBilleterieBundle:Default:paiement.html.twig');
+    }
+    public function generateBillet($client,$typeBillet,$commande) {
+        $billet = new Billet();
+        $dateVisite = $commande->getDateVisite();
+        $dateNaissance = $client->getNaissance();
+        $diff = $dateNaissance->diff($dateVisite);
+        $age = $diff->format('%Y');
+        $tarifReduit = $client->getTarifReduit();
+        $categorie = 0;
+        $tarif = 16;
+        if ($age<4) {
+            $categorie = 0;
+        }
+        elseif ($age < 12 AND $age>4 ) {
+            $categorie = 1;
+        }
+        elseif ($tarifReduit) {
+            $categorie = 2;
+        }
+        elseif ($age>60) {
+            $categorie = 3;
+        }
+        else {
+            $categorie = 4;
+        }
+        switch ($categorie)
+        {
+            case 0:
+                $tarif = 0;
+                break;
+            case 1:
+                $tarif = 8;
+                break;
+            case 2:
+                $tarif = 10;
+                break;
+            case 3:
+                $tarif = 12;
+                break;
+            case 4:
+                $tarif = 16;
+                break;
+        }
+        if ($typeBillet) {
+            $tarif = $tarif/2;
+        }
+        $billet->setCategorie($categorie);
+        $billet->setTarif($tarif);
+        return $billet;
     }
 }

@@ -54,7 +54,7 @@ class Client
      *
      * @var type Billet
      * 
-     * @ORM\OneToOne(targetEntity="ER\BilleterieBundle\Entity\Billet")
+     * @ORM\OneToOne(targetEntity="ER\BilleterieBundle\Entity\Billet",cascade={"persist"})
      */
     private $billet;
     
