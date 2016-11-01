@@ -52,7 +52,10 @@ class DefaultController extends Controller
                   $commande->addClient($clients[$i]);
                   $clients[$i]->setBillet($this->generateBillet($clients[$i], $commande->getDemi(),$commande));
             }
-            $session->set('Commande', $commande);
+            $session
+                    ->set('Commande', $commande)
+                    ->set('Clients', $clients);
+            
             $em->persist($commande);
             $em->flush();
             
@@ -69,10 +72,22 @@ class DefaultController extends Controller
         
         $session = $request->getSession();
         $commande = $session->get('Commande');
-        $id = $commande->getId();
+        $nombre = $commande->getNombre();
+        $clients = $commande->getClients();
+        $billets = [];
+        for ($i = 0; $i < $nombre; $i++) {
+            $billets[$i] = $clients[$i]->getBillet();
+        }
+     
+        
+        
         
         return $this->render('ERBilleterieBundle:Default:paiement.html.twig');
     }
+    
+    
+    
+    //Fonction pour calculer l'age, et le tarif du billet en fonction de l'age, de l'option "tarif réduit" et du choix "journée complète" ou "demi journée".
     public function generateBillet($client,$typeBillet,$commande) {
         $billet = new Billet();
         $dateVisite = $commande->getDateVisite();
