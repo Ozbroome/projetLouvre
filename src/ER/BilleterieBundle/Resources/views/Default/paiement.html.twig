@@ -16,25 +16,27 @@
                     <thead>
                         <tr>
                             <th>Visiteur</th>
-                            <th>Réduction</th>
                             <th>Tarif</th>
                        </tr>
                     </thead>
                    
                     <tfoot>
                         <tr>
-                            <td></td>
                             <td>Prix total :</td>
-                            <td></td>
+                            <td>{{ prixTotal }}</td>
                         </tr>
                     </tfoot>
                     
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                       {%  for client in clients %}
+                           
+                        <tr>         
+                            <td>{{ client.prenom }} {{ client.nom }}</td>
+                            <td>{{ billets[loop.index0].tarif }}</td>
+                            
                         </tr>
+                         
+                        {% endfor %}
                     </tbody>
                     
                 </table>
@@ -44,7 +46,7 @@
                     <script
                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                         data-key="pk_test_HxZzNHy8LImKK9LDtgMDRBwd"
-                        data-amount="800"
+                        data-amount="{{prixTotal * 100}}"
                         data-name="Dollar Shear Club"
                         data-description="Widget"
                         data-image="/img/documentation/checkout/marketplace.png"

@@ -52,9 +52,8 @@ class DefaultController extends Controller
                   $commande->addClient($clients[$i]);
                   $clients[$i]->setBillet($this->generateBillet($clients[$i], $commande->getDemi(),$commande));
             }
-            $session
-                    ->set('Commande', $commande)
-                    ->set('Clients', $clients);
+            $session->set('Commande', $commande);
+            $session ->set('Clients', $clients);
             
             $em->persist($commande);
             $em->flush();
@@ -75,14 +74,16 @@ class DefaultController extends Controller
         $nombre = $commande->getNombre();
         $clients = $commande->getClients();
         $billets = [];
+        $prixTotal = 0;
         for ($i = 0; $i < $nombre; $i++) {
             $billets[$i] = $clients[$i]->getBillet();
+            $prixTotal += $billets[$i]->getTarif();
         }
-     
         
         
         
-        return $this->render('ERBilleterieBundle:Default:paiement.html.twig');
+        
+        return $this->render('ERBilleterieBundle:Default:paiement.html.twig', array('commande' =>$commande,'clients' => $clients, 'billets' =>$billets,'prixTotal'=>$prixTotal));
     }
     
     
