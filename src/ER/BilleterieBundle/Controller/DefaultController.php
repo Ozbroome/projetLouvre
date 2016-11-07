@@ -30,6 +30,7 @@ class DefaultController extends Controller
  
     public function clientAction(Request $request)
     {
+        $gestionCommande = $this->get('er_billeterie.gestionCommande');
         $session = $request->getSession();
         $commande = $session->get('Commande');
         $nombre = $commande->getNombre();
@@ -50,11 +51,9 @@ class DefaultController extends Controller
             $em = $this->getDoctrine()->getManager();
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
-                  $clients[$i]->setBillet($this->generateBillet($clients[$i], $commande->getDemi(),$commande));
             }
+            $gestionCommande->generateBillets($commande);
             $session->set('Commande', $commande);
-            $session ->set('Clients', $clients);
-            
             $em->persist($commande);
             $em->flush();
             
@@ -71,71 +70,8 @@ class DefaultController extends Controller
         
         $session = $request->getSession();
         $commande = $session->get('Commande');
-        $nombre = $commande->getNombre();
-        $clients = $commande->getClients();
-        $billets = [];
-        $prixTotal = 0;
-        for ($i = 0; $i < $nombre; $i++) {
-            $billets[$i] = $clients[$i]->getBillet();
-            $prixTotal += $billets[$i]->getTarif();
-        }
-        
-        
-        
-        
-        return $this->render('ERBilleterieBundle:Default:paiement.html.twig', array('commande' =>$commande,'clients' => $clients, 'billets' =>$billets,'prixTotal'=>$prixTotal));
+
+        return $this->render('ERBilleterieBundle:Default:paiement.html.twig', array('commande' =>$commande));
     }
     
-    
-    
-    //Fonction pour calculer l'age, et le tarif du billet en fonction de l'age, de l'option "tarif réduit" et du choix "journée complète" ou "demi journée".
-    public function generateBillet($client,$typeBillet,$commande) {
-        $billet = new Billet();
-        $dateVisite = $commande->getDateVisite();
-        $dateNaissance = $client->getNaissance();
-        $diff = $dateNaissance->diff($dateVisite);
-        $age = $diff->format('%Y');
-        $tarifReduit = $client->getTarifReduit();
-        $categorie = 0;
-        $tarif = 16;
-        if ($age<4) {
-            $categorie = 0;
-        }
-        elseif ($age < 12 AND $age>4 ) {
-            $categorie = 1;
-        }
-        elseif ($tarifReduit) {
-            $categorie = 2;
-        }
-        elseif ($age>60) {
-            $categorie = 3;
-        }
-        else {
-            $categorie = 4;
-        }
-        switch ($categorie)
-        {
-            case 0:
-                $tarif = 0;
-                break;
-            case 1:
-                $tarif = 8;
-                break;
-            case 2:
-                $tarif = 10;
-                break;
-            case 3:
-                $tarif = 12;
-                break;
-            case 4:
-                $tarif = 16;
-                break;
-        }
-        if ($typeBillet) {
-            $tarif = $tarif/2;
-        }
-        $billet->setCategorie($categorie);
-        $billet->setTarif($tarif);
-        return $billet;
-    }
 }

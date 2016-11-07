@@ -1,60 +1,60 @@
 {% extends "::base.html.twig" %}
 {% block content %}
     <div class="nav-space-checkout">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                
-        
-                <table class="table">
-                    <caption>
-                        <h1>Récapitulatif de la commande</h1>
-                                <br>
-                                <tr>
-                    </caption>
-                   
-                    <thead>
-                        <tr>
-                            <th>Visiteur</th>
-                            <th>Tarif</th>
-                       </tr>
-                    </thead>
-                   
-                    <tfoot>
-                        <tr>
-                            <td>Prix total :</td>
-                            <td>{{ prixTotal }}</td>
-                        </tr>
-                    </tfoot>
-                    
-                    <tbody>
-                       {%  for client in clients %}
-                           
-                        <tr>         
-                            <td>{{ client.prenom }} {{ client.nom }}</td>
-                            <td>{{ billets[loop.index0].tarif }}</td>
-                            
-                        </tr>
-                         
-                        {% endfor %}
-                    </tbody>
-                    
-                </table>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <form action="" method="POST">
-                    <script
-                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                        data-key="pk_test_HxZzNHy8LImKK9LDtgMDRBwd"
-                        data-amount="{{prixTotal * 100}}"
-                        data-name="Dollar Shear Club"
-                        data-description="Widget"
-                        data-image="/img/documentation/checkout/marketplace.png"
-                        data-locale="auto">
-                    </script>
-                </form>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+
+
+                    <table class="table">
+                        <caption>
+                            <h1>Récapitulatif de la commande</h1>
+                            <br>
+                            <tr>
+                        </caption>
+
+                        <thead>
+                            <tr>
+                                <th>Visiteur</th>
+                                <th>Tarif</th>
+                            </tr>
+                        </thead>
+
+                        <tfoot>
+                            <tr>
+                                <td>Prix total :</td>
+                                <td>{{ commande.prixTotal }}</td>
+                            </tr>
+                        </tfoot>
+
+                        <tbody>
+                            {%  for client in commande.clients %}
+
+                                <tr>         
+                                    <td>{{ client.prenom }} {{ client.nom }}</td>
+                                    <td>{{ client.billet.tarif }}</td>
+
+                                </tr>
+
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <form action="" method="POST">
+                        <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_HxZzNHy8LImKK9LDtgMDRBwd"
+                            data-amount="{{commande.prixTotal * 100}}"
+                            data-name="Dollar Shear Club"
+                            data-description="Widget"
+                            data-image="/img/documentation/checkout/marketplace.png"
+                            data-locale="auto">
+                        </script>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
-    {% endblock%}{# empty Twig template #}
+{% endblock%}{# empty Twig template #}

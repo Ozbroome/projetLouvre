@@ -233,4 +233,14 @@ class Commande
     {
         return $this->clients;
     }
+    
+    public function getPrixTotal()
+    {
+       $prixTotal =0;
+       
+       foreach($this->getClients() as $client) {
+           $prixTotal += $client->getBillet()->getTarif();
+       }
+       return $prixTotal;
+    }
 }
