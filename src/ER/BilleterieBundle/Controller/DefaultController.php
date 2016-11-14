@@ -56,8 +56,7 @@ class DefaultController extends Controller
             $session->set('Commande', $commande);
             $em->persist($commande);
             $em->flush();
-            
-           
+
             return $this->redirectToRoute('er_billeterie_paiement');
         }
        /* $formClient = $this->get('form.factory')->create(ClientType::class, $clients);*/
@@ -67,11 +66,24 @@ class DefaultController extends Controller
     
     public function paiementAction(Request $request)
     {
-        
-        $session = $request->getSession();
+                $session = $request->getSession();
         $commande = $session->get('Commande');
-
-        return $this->render('ERBilleterieBundle:Default:paiement.html.twig', array('commande' =>$commande));
+        
+        if ($request->isMethod('POST')) {
+            $token = $request->request->get('stripeToken');
+            
+             \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+            \Stripe\Charge::create(array(
+              "amount" => $commande->getPrixTotal() * 100,
+              "currency" => "EUR",
+              "source" => $token,
+              "description" => "Paiement de la commande"
+            ));
+            $this->addFlash('success', 'Félicitation, vos billets on bien été commandés.');
+            return $this->redirectToRoute('er_billeterie_homepage');
+        }
+        return $this->render('ERBilleterieBundle:Default:paiement.html.twig', array('commande' =>$commande,
+            'stripe_public_key' => $this->getParameter('stripe_public_key')));
     }
     
 }

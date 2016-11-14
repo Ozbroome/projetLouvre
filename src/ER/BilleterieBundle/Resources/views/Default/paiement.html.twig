@@ -45,16 +45,18 @@
                     <form action="" method="POST">
                         <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                            data-key="pk_test_HxZzNHy8LImKK9LDtgMDRBwd"
+                            data-key="{{ stripe_public_key }}"
                             data-amount="{{commande.prixTotal * 100}}"
-                            data-name="Dollar Shear Club"
+                            data-name="Musée du Louvre"
                             data-description="Widget"
                             data-image="/img/documentation/checkout/marketplace.png"
-                            data-locale="auto">
+                            data-locale="auto"
+                            data-currency="EUR">
+
                         </script>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-{% endblock%}{# empty Twig template #}
+{% endblock%}
