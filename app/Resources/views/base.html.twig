@@ -8,9 +8,11 @@
 
         <title>{% block title %}Louvre billetterie{% endblock %}</title>
 
-        {% block stylesheets %}
+       
             {# On charge le CSS de bootstrap depuis le site directement #}
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+            <link rel="stylesheet" href="{{ asset('sass/main.css') }}">
+             {% block stylesheets %}
         {% endblock %}
     </head>
 
@@ -31,13 +33,9 @@
             <div id="header" class="jumbotron">
                 {% block header %}
                     <h1>La billetterie du Louvre</h1>
-                    <p>
-                        Projet 3
-                    </p>
                 {% endblock %}
             </div>
 
-            <hr>
             <div id="content">
                 {% block content %}
 

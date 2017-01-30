@@ -23,7 +23,7 @@ class CommandeType extends AbstractType
     {
         $builder
                 ->add('dateVisite', DateType::class)
-                ->add('demi', ChoiceType::class, array ('choices'=>array('journée'=>0,'demi-journée'=>1), 'label'=>'Type de billet') )
+                ->add('demi', ChoiceType::class, array ('choices'=>array('journée'=>0,'demi-journée (à partir de 14h)'=>1), 'label'=>'Type de billet') )
                 ->add('nombre', IntegerType::class)
                 ->add('email',     EmailType::class )
                 ->add('save',   SubmitType::class, array('label'=>'Continuer'));

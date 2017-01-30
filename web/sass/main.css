@@ -1,0 +1,54 @@
+.jumbotron{
+    background: url(../img/header.jpg);
+    background-size: cover;
+    margin-top: 2em;
+    color:white;
+    height: 20em;
+}
+body{
+    background: #2D373D;
+  color: #2D373D;
+}
+#content{
+    padding: 1em;
+    padding-bottom: 3em;
+    border-radius: 5px;
+    background: #81CCD1;
+
+}
+#form>.form-group:not(:last-of-type){
+    border: 3px solid #fafafa;
+    border-radius: 5px;
+    padding: 0.5em;
+}
+table{
+    background: #fafafa;
+    padding: 2em;
+}
+footer{
+  color: white;
+}
+@media screen and (min-width : 750px) {
+      .jumbotron{
+    background: url(../img/header.jpg);
+    background-size: cover;
+    margin-top: 2em;
+    color:white;
+    height: 20em;
+}
+body{
+    background: #2D373D;
+  color: #2D373D;
+}
+#content{
+    padding: 3em;
+    border-radius: 5px;
+    background: #81CCD1;
+
+}
+#form>.form-group:not(:last-of-type){
+    border: 1px solid #fafafa;
+    border-radius: 5px;
+    padding: 2em;
+}
+  }

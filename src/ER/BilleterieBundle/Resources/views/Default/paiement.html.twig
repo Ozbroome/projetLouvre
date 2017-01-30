@@ -1,22 +1,16 @@
 {% extends "::base.html.twig" %}
 {% block content %}
     <div class="nav-space-checkout">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-
-
-                    <table class="table">
+         <table class="table">
                         <caption>
                             <h1>Récapitulatif de la commande</h1>
                             <br>
-                            <tr>
                         </caption>
 
                         <thead>
                             <tr>
-                                <th>Visiteur</th>
-                                <th>Tarif</th>
+                                <th class="col-xs-6">Visiteur</th>
+                                <th class="col-xs-6">Tarif</th>
                             </tr>
                         </thead>
 
@@ -40,7 +34,7 @@
                         </tbody>
 
                     </table>
-                </div>
+
                 <div class="col-xs-12 col-sm-6">
                     <form action="" method="POST">
                         <script
@@ -48,15 +42,16 @@
                             data-key="{{ stripe_public_key }}"
                             data-amount="{{commande.prixTotal * 100}}"
                             data-name="Musée du Louvre"
-                            data-description="Widget"
-                            data-image="/img/documentation/checkout/marketplace.png"
+                            data-description="Paiement stripe"
+                            data-image="{{ asset('img/header.jpg') }}"
                             data-locale="auto"
                             data-currency="EUR">
+                                
 
                         </script>
                     </form>
                 </div>
-            </div>
-        </div>
+
+
     </div>
 {% endblock%}
