@@ -22,7 +22,15 @@ class CommandeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('dateVisite', DateType::class)
+                ->add('dateVisite', DateType::class, [
+    'widget' => 'single_text',
+    'format' => 'dd-MM-yyyy',
+    'attr' => [
+        'class' => 'form-control input-inline datepicker',
+        'data-provide' => 'datepicker',
+        'data-date-format' => 'dd-mm-yyyy'
+    ]
+])
                 ->add('demi', ChoiceType::class, array ('choices'=>array('journée'=>0,'demi-journée (à partir de 14h)'=>1), 'label'=>'Type de billet') )
                 ->add('nombre', IntegerType::class)
                 ->add('email',     EmailType::class )
