@@ -17,30 +17,35 @@ class Visiting_day
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+    
     /**
      * @var int
      *
      * @ORM\Column(name="number_tickets", type="integer", nullable=true)
      */
     private $numberTickets;
+    
    /**
     *@var bool
     *
     *@ORM\Column(name="reservable", type="boolean")
     */
     private $reservable;
+    
    /**
     *@var string
     *
     *@ORM\Column(name="availability", type="string")
     */
     private $availability;
+    
     /**
      * Get id
      *
@@ -50,6 +55,7 @@ class Visiting_day
     {
         return $this->id;
     }
+    
     /**
      * Set date
      *
@@ -62,6 +68,7 @@ class Visiting_day
         $this->date = $date;
         return $this;
     }
+    
     /**
      * Get date
      *
@@ -71,6 +78,7 @@ class Visiting_day
     {
         return $this->date;
     }
+    
     /**
      * Set numberTickets
      *
@@ -83,6 +91,7 @@ class Visiting_day
         $this->numberTickets = $numberTickets;
         return $this;
     }
+    
     /**
      * Get numberTickets
      *
@@ -105,6 +114,7 @@ class Visiting_day
         $this->reservable = $reservable;
         return $this;
     }
+    
     /**
      * Get reservable
      *
@@ -114,6 +124,7 @@ class Visiting_day
     {
         return $this->reservable;
     }
+    
     /**
      * Set availability
      *
@@ -126,6 +137,7 @@ class Visiting_day
         $this->availability = $availability;
         return $this;
     }
+    
     /**
      * Get availability
      *

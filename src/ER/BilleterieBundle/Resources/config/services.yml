@@ -2,3 +2,11 @@ services:
    er_billeterie.gestionCommande:
         class: ER\BilleterieBundle\Services\GestionCommande
         #arguments: ["@service_id", "plain_value", %parameter%]
+
+   er_billeterie.validator.visitDays:
+       class: ER\BilleterieBundle\Validator\Constraints\VisitDaysValidator
+       
+       arguments: ["@doctrine.orm.entity_manager"]
+       
+       tags:
+           - { name: validator.constraint_validator}

@@ -1,7 +1,7 @@
 <?php
 namespace ER\BilleterieBundle\Services;
 use Doctrine\ORM\EntityManager;
-use ER\BilleterieBundle\Entity\Order;
+use ER\BilleterieBundle\Entity\Commande;
 use ER\BilleterieBundle\Entity\Visiting_day;
 class ControlVisitingDays{
 	private $em;

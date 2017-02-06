@@ -2,13 +2,16 @@
 
 namespace ER\BilleterieBundle\Entity;
 
+use ER\BilleterieBundle\Validator\Constraints\VisitDays;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use ER\BilleterieBundle\Validator\Constraints as AcmeAssert;
 /**
  * Commande
  *
  * @ORM\Table(name="commande")
  * @ORM\Entity(repositoryClass="ER\BilleterieBundle\Repository\CommandeRepository")
+ * @AcmeAssert\VisitDays()
  */
 class Commande
 {
@@ -30,7 +33,7 @@ class Commande
 
     /**
      * @var \DateTime
-     *
+     * 
      * @ORM\Column(name="dateVisite", type="date")
      */
     private $dateVisite;
@@ -243,4 +246,5 @@ class Commande
        }
        return $prixTotal;
     }
+    
 }

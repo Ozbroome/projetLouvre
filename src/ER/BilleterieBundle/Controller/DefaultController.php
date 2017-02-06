@@ -47,15 +47,13 @@ class DefaultController extends Controller
         }
         $form->add('save',   SubmitType::class, array('label'=>'Continuer'));
         $formClient = $form->getForm();
-        if ($request->isMethod('POST') && $formClient->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        if ($request->isMethod('POST') && $formClient->handleRequest($request)->isValid()) { 
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
             }
             $gestionCommande->generateBillets($commande);
             $session->set('Commande', $commande);
-            $em->persist($commande);
-            $em->flush();
+            
 
             return $this->redirectToRoute('er_billeterie_paiement');
         }
@@ -68,7 +66,7 @@ class DefaultController extends Controller
     {
                 $session = $request->getSession();
         $commande = $session->get('Commande');
-        
+        $em = $this->getDoctrine()->getManager();
         if ($request->isMethod('POST')) {
             $token = $request->request->get('stripeToken');
             
@@ -79,6 +77,8 @@ class DefaultController extends Controller
               "source" => $token,
               "description" => "Paiement de la commande"
             ));
+            $em->persist($commande);
+            $em->flush();
             $this->addFlash('success', 'Félicitation, vos billets on bien été commandés.');
             return $this->redirectToRoute('er_billeterie_homepage');
         }
