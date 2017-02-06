@@ -24,11 +24,9 @@ class CommandeType extends AbstractType
         $builder
                 ->add('dateVisite', DateType::class, [
     'widget' => 'single_text',
-    'format' => 'dd-MM-yyyy',
+    'format' => 'd/M/y',
     'attr' => [
         'class' => 'form-control input-inline datepicker',
-        'data-provide' => 'datepicker',
-        'data-date-format' => 'dd-mm-yyyy'
     ]
 ])
                 ->add('demi', ChoiceType::class, array ('choices'=>array('journée'=>0,'demi-journée (à partir de 14h)'=>1), 'label'=>'Type de billet') )

@@ -1,8 +1,8 @@
 <?php
-namespace AppBundle\Services;
+namespace ER\BilleterieBundle\Services;
 use Doctrine\ORM\EntityManager;
-use AppBundle\Entity\Order;
-use AppBundle\Entity\Visiting_day;
+use ER\BilleterieBundle\Entity\Order;
+use ER\BilleterieBundle\Entity\Visiting_day;
 class ControlVisitingDays{
 	private $em;
 	public function __construct(EntityManager $em){
