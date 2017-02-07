@@ -12,10 +12,11 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  */
 class VisitDays extends Constraint {
-    public $message = "Le jour séléctionné vous oblige à remonter le temps.";
+    public $message = "La date séléctionné est passé, veuillez séléctionner une date valide.";
     public $message2 = "désolé, nous sommes fermé les dimanches et mardis";
-    public $message3= "désolé nous serons fermé sur cette période";
-    public $message4 = "Nous n'allons quand même pas vous faire payer une journée entière";
+    public $message3= "désolé nous serons fermé à cette date";
+    public $message4 = "Il est plus de 14h, veuillez séléctionner un billet demi-journée";
+    public $message5 = "Le musée est complet à cette date";
     public function validatedBy()
     {
         return get_class($this).'Validator';

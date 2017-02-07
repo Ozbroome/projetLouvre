@@ -63,7 +63,10 @@ class VisitDaysValidator extends ConstraintValidator {
             $this->context->buildViolation($constraint->message3)
                 ->addViolation();
         } 
-        
+        if (in_array($visitDate->format('N'), $daysOff)) {
+            $this->context->buildViolation($constraint->message2)
+                ->addViolation();
+        }
                 // Récupère les entités avec le meme jour de réservation
         $daysReservation = $this->em
             ->getRepository('ERBilleterieBundle:Commande')
@@ -74,17 +77,18 @@ class VisitDaysValidator extends ConstraintValidator {
         if (empty($daysReservation)) {
             return;
         }
-        // Initialisation du nombre de reservation à 0
-        $nbReservations = 0;
+        // Initialisation du nombre de reservation au nombre de ticket demandé pour la commande
+        
+        $nbReservations = $value->getNombre();
         // Récupère le nombre de billets pour chaque entité récupérée
         foreach ($daysReservation as $daysReservations) {
-            // Compte le nombre de billets liés
+            // Compte le nombre de billets par commande
             $nbTickets = $daysReservations->getNombre();
             // Ajoute ce nombre au total
             $nbReservations += $nbTickets;
         }
         
-        if ($nbReservations >= 2) {
+        if ($nbReservations >= 1000) {
             // Déclenche l'erreur
              $this->context->buildViolation($constraint->message3)
                 ->addViolation();
