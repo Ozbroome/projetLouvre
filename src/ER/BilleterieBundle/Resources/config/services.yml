@@ -10,3 +10,11 @@ services:
        
        tags:
            - { name: validator.constraint_validator}
+           
+   er_billeterie.email:
+        class: ER\BilleterieBundle\Services\Email
+        arguments:
+            - "@mailer"
+            - "@twig"
+            - "@service_container"
+            - "@doctrine.orm.entity_manager"

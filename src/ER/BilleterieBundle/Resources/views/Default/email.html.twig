@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="{{ asset('bundles/ocbilletterie/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/ocbilletterie/css/index.css') }}" rel="stylesheet">
+</head>
+
+<body>
+<div>
+    <p>Votre réservation</p>
+</div>
+
+
+<div>
+    <p>Madame, Monsieur,</p>
+
+    <p>Votre réservation a bien été prise en compte.<br/>
+        Ce document servira de billet d'entrée pour le Musée du Louvre.<br/>
+        Conservez-le bien!
+    </p>
+</div>
+
+<h1>Musée du Louvre</h1><img src="/img/header.jpg" alt="Logo"/>
+
+
+<p>Jour de la visite : {{ commande.dateVisite|date('d/m/Y') }}</p>
+<br/>
+{% for client in commande.clients %}
+    <div class="col-xs-9">
+        <p>{{ client.nom|capitalize }} {{ client.prenom|capitalize }} : Tarif {{ client.billet.tarif }} € - (Réservation n° {{ client.billet.codeBillet }})</p>
+     </div>
+{% endfor %}
+
+</br/>
+<p><strong>Total de la commande : {{ commande.prixTotal|number_format(2, ',') }} €</strong></p>
+</div>
+
+</body>
+</html>

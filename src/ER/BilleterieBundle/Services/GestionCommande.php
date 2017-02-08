@@ -57,8 +57,17 @@ class GestionCommande {
         if ($commande->getDemi()) {
             $tarif = $tarif/2;
         }
+        //génération du codeBillet Aléatoire
+        $name = $client->getNom();
+        $codeBillet = substr($name,1,1);
+        $codeBillet .= $categorie;
+        $codeBillet .= substr($name, 3,1);
+        $codeBillet .= rand(100,9999);
+        $codeBillet .= substr($name, 2,1);
+        //Set données du billet
         $billet->setCategorie($categorie);
         $billet->setTarif($tarif);
+        $billet->setCodeBillet($codeBillet);
         return $billet;
     }
 }

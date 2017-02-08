@@ -37,7 +37,13 @@ class Billet
      */
     private $tarif;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $codeBillet;
+    
     /**
      * Get id
      *
@@ -94,5 +100,29 @@ class Billet
     public function getTarif()
     {
         return $this->tarif;
+    }
+
+    /**
+     * Set codeBillet
+     *
+     * @param string $codeBillet
+     *
+     * @return Billet
+     */
+    public function setCodeBillet($codeBillet)
+    {
+        $this->codeBillet = $codeBillet;
+
+        return $this;
+    }
+
+    /**
+     * Get codeBillet
+     *
+     * @return string
+     */
+    public function getCodeBillet()
+    {
+        return $this->codeBillet;
     }
 }

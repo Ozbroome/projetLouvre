@@ -1,3 +1,7 @@
+#alert .alert-refus{
+    background-color: rgba(215, 44, 44, 0.3) !important;
+    color: white;
+}
 .jumbotron{
     background: url(../img/header.jpg);
     background-size: cover;
@@ -29,6 +33,10 @@ footer{
   color: white;
 }
 @media screen and (min-width : 750px) {
+    #alert .alert-refus{
+    background-color: rgba(215, 44, 44, 0.3) !important;
+    color: white;
+}
       .jumbotron{
     background: url(../img/header.jpg);
     background-size: cover;
