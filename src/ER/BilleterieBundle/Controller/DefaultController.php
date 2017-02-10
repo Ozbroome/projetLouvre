@@ -20,7 +20,8 @@ class DefaultController extends Controller
         $session = $request->getSession();
         $commande = new Commande();
         $form = $this->get('form.factory')->create(CommandeType::class, $commande);
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
             
             $session->set('Commande', $commande);
             
@@ -36,12 +37,8 @@ class DefaultController extends Controller
         $gestionCommande = $this->get('er_billeterie.gestionCommande');
         $session = $request->getSession();
         $commande = $session->get('Commande');
-        $nombre = $commande->getNombre();
-        $clients = array();
-        for ($i=0; $i<$nombre; $i++){
-            $clients[$i] = new Client();
-        }
-        $form = $this->createFormBuilder($clients);
+        $nombre = $commande->getNombre(); 
+        $form = $this->createFormBuilder();
         for ($i = 0; $i < $nombre; $i++) {
             $form
                     ->add($i, ClientType::class, array(
@@ -50,7 +47,9 @@ class DefaultController extends Controller
         }
         $form->add('save',   SubmitType::class, array('label'=>'Continuer'));
         $formClient = $form->getForm();
-        if ($request->isMethod('POST') && $formClient->handleRequest($request)->isValid()) { 
+        $formClient->handleRequest($request);
+        if ($formClient->isSubmitted() && $formClient->isValid()) { 
+            $clients = $formClient->getData();
             for ($i = 0; $i < $nombre; $i++) {
                   $commande->addClient($clients[$i]);
             }
@@ -59,7 +58,6 @@ class DefaultController extends Controller
             
             return $this->redirectToRoute('er_billeterie_paiement');
         }
-       /* $formClient = $this->get('form.factory')->create(ClientType::class, $clients);*/
         return $this->render('ERBilleterieBundle:Default:client.html.twig', array('formClient' => $formClient->createView(),
             ));
     }

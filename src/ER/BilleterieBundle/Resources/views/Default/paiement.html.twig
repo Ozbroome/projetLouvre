@@ -10,13 +10,13 @@
                         <thead>
                             <tr>
                                 <th class="col-xs-6">Visiteur</th>
-                                <th class="col-xs-6">Tarif</th>
+                                <th class="col-xs-6">Tarif (euros)</th>
                             </tr>
                         </thead>
 
                         <tfoot>
                             <tr>
-                                <td>Prix total :</td>
+                                <td>Prix total (euros):</td>
                                 <td>{{ commande.prixTotal }}</td>
                             </tr>
                         </tfoot>
@@ -39,7 +39,9 @@
                     <form action="" method="POST">
                         <script
                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-label="Payer par carte"
                             data-key="{{ stripe_public_key }}"
+                            data-email="{{commande.email}}"
                             data-amount="{{commande.prixTotal * 100}}"
                             data-name="Musée du Louvre"
                             data-description="Paiement stripe"
