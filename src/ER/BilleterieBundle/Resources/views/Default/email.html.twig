@@ -6,8 +6,34 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link href="{{ asset('bundles/ocbilletterie/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/ocbilletterie/css/index.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+        .billets{
+            background: #fafafa;
+            padding: 30px;
+        }
+        h1{
+            text-align: center;
+        }
+        .total{
+            float:right;
+            
+        }
+        p{
+            font-size: 16px;
+        }
+        table{
+            width: 100%;
+            
+        }
+        th,td{
+            width: 24%;
+            border: 1px solid black;
+            text-align: center;
+            padding-top:5px;
+            padding-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,20 +50,48 @@
         Conservez-le bien!
     </p>
 </div>
-
+    <div class="billets">
 <h1>Musée du Louvre</h1><img src="/img/header.jpg" alt="Logo"/>
 
 
 <p>Jour de la visite : {{ commande.dateVisite|date('d/m/Y') }}</p>
 <br/>
-{% for client in commande.clients %}
-    <div class="col-xs-9">
-        <p>{{ client.nom|capitalize }} {{ client.prenom|capitalize }} : Tarif {{ client.billet.tarif }} € - (Réservation n° {{ client.billet.codeBillet }})</p>
-     </div>
-{% endfor %}
+<div>
+        	<table>
+		<thead>
+		<tr>
+			<th>Nom</th>
+			<th>Prénom</th>
+			<th>Tarif</th>
+			<th>Numéro de réservation</th>
+		</tr>
 
-</br/>
-<p><strong>Total de la commande : {{ commande.prixTotal|number_format(2, ',') }} €</strong></p>
+	</thead>
+{% for client in commande.clients %}
+        
+
+
+<tbody>
+	<tr>
+		<td>{{ client.nom|capitalize }}</td>
+		<td>{{ client.prenom|capitalize }}</td>
+		<td>{{ client.billet.tarif }}</td>
+		<td>{{ client.billet.codeBillet }}</td>
+	</tr>
+</tbody>
+
+     
+{% endfor %}
+<tfoot>
+	<tr>
+		<th>Total:</th>
+		<th></th>
+		<th></th>
+		<th> {{ commande.prixTotal|number_format(2, ',') }} €</th>
+	</tr>
+</tfoot>
+                </table>
+</div>
 </div>
 
 </body>
